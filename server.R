@@ -233,7 +233,7 @@ shinyServer(function(input, output) {
                 PositiveRatio=sum(positive_ratings)/(sum(positive_ratings)+sum(negative_ratings)),
                 no_players=sum(strtoi(min_owners)),
             )
-        plot_ly(colors= c("red","green"),
+        plot_ly(colors= c("red","green"),type="scatter",
             dataTMP,
             x=~no_players,
             y=~PositiveRatio,
@@ -270,7 +270,7 @@ shinyServer(function(input, output) {
                 PositiveRatio=sum(positive_ratings)/(sum(positive_ratings)+sum(negative_ratings)),
                 no_players=sum(strtoi(min_owners)),
             )
-        plot_ly(colors= c("red","green"),
+        plot_ly(colors= c("red","green"),type="scatter",
             dataTMP,
             x=~no_players,
             y=~PositiveRatio,
