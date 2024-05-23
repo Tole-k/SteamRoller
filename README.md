@@ -1,6 +1,6 @@
 # Dashboard
 
-The purpose of this dashboard is to present different aspects of the Steam games dataset ("<https://www.kaggle.com/nikdavis/steam-store-games>" ) and allow for a deep dive into game industry as a whole.
+The purpose of this dashboard is to present different aspects of the Steam games dataset (<https://www.kaggle.com/nikdavis/steam-store-games>) and allow for a deep dive into game industry as a whole.
 
 + The first page lets the user explore the data freely allowing them to get all available information regarding chosen game in a concise format of customizable table. Apart from the table there is a simple visualization of game's reviews.
 
