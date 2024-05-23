@@ -232,16 +232,20 @@ shinyServer(function(input, output) {
                 no_games=n(),
                 PositiveRatio=sum(positive_ratings)/(sum(positive_ratings)+sum(negative_ratings)),
                 no_players=sum(strtoi(min_owners)),
-            )
-        plot_ly(colors= c("red","green"),type="scatter",
+            )%>%
+            rename(`Ratio of positive reviews`=PositiveRatio,
+                   `number of players`=no_players,
+                   `number of games`=no_games)
+        plot_ly(colors= c("red","green"),type="scatter",name=" ",
             dataTMP,
-            x=~no_players,
-            y=~PositiveRatio,
+            x=~`number of players`,
+            y=~`Ratio of positive reviews`,
             text=~developer,
-            size=~no_games,
-            color=~PositiveRatio,
-            customdata=~no_games,
+            size=~`number of games`,
+            color=~`Ratio of positive reviews`,
+            customdata=~`number of games`,
             mode="markers",
+            
             marker=list(
                 opacity=0.5,
                 sizemode="area",
@@ -253,6 +257,11 @@ shinyServer(function(input, output) {
                 "Number of Games: %{customdata}<br>",
                 "Ratio of positive reviews: %{marker.color:.4f}<br>"
             )
+        )%>%layout(
+            title = "Developers",
+            xaxis = list(title = "Number of players"),
+            yaxis = list(title = "Ratio of positive reviews"),
+            legend = list(title = "Ratio of positive reviews")
         )
     })
     output$hall_of_fame4 <- renderPlotly({
@@ -262,22 +271,24 @@ shinyServer(function(input, output) {
             filter(release_date>input$time[1])%>%
             filter(release_date<input$time[2])%>%
             filter(genres == input$genrePD)%>%
-            filter(min_owners > 10000)
-        dataTMP<-dataTMP%>%
+            filter(min_owners > 10000)%>%
             group_by(publisher)%>%
             summarise(
                 no_games=n(),
                 PositiveRatio=sum(positive_ratings)/(sum(positive_ratings)+sum(negative_ratings)),
                 no_players=sum(strtoi(min_owners)),
-            )
-        plot_ly(colors= c("red","green"),type="scatter",
+            )%>%
+            rename(`Ratio of positive reviews`=PositiveRatio,
+                    `number of players`=no_players,
+                    `number of games`=no_games)
+        plot_ly(colors= c("red","green"),type="scatter",name=" ",
             dataTMP,
-            x=~no_players,
-            y=~PositiveRatio,
+            x=~`number of players`,
+            y=~`Ratio of positive reviews`,
             text=~publisher,
-            size=~no_games,
-            color=~PositiveRatio,
-            customdata=~no_games,
+            size=~`number of games`,
+            color=~`Ratio of positive reviews`,
+            customdata=~`number of games`,
             mode="markers",
             marker=list(
                 opacity=0.5,
@@ -290,6 +301,12 @@ shinyServer(function(input, output) {
                 "Number of Games: %{customdata}<br>",
                 "Ratio of positive reviews: %{marker.color:.4f}<br>"
             )
-        )
+        )%>%
+        layout(
+        title = "Publishers",
+        xaxis = list(title = "Number of players"),
+        yaxis = list(title = "Ratio of positive reviews"),
+        legend = list(title = "Ratio of positive reviews")
+    )
     })
 })
