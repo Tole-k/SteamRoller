@@ -30,7 +30,7 @@ shinyServer(function(input, output) {
                 labels = ~category, 
                 values = ~amount, 
                 type = 'pie',
-                marker = list(colors = c('green', 'red'))
+                marker = list(colors = c('limegreen', '#DC4636'))
             )
         }
     })
