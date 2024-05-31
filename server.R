@@ -102,7 +102,7 @@ shinyServer(function(input, output) {
             +ylab("Share of negative reviews"),tooltip = "text")
     })
     global <- reactiveValues(toHighlight = c(TRUE,rep(FALSE, length(dataH$year)-1)), 
-                             selectedBar = "2007")
+                             selectedBar = "1997")
     observeEvent(eventExpr = input$history_click, {
         global$selectedBar <- dataH$year[round(input$history_click$x)]
         global$toHighlight <- dataH$year %in% global$selectedBar
