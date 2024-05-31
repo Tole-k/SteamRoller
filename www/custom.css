@@ -1,0 +1,25 @@
+.main-header .logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: black !important;
+}
+body {
+  font-family: "Arial", sans-serif;
+}
+.irs--shiny .irs-bar, .irs--shiny .irs-single {
+  border: green;
+  background: green;
+}
+.irs .irs-to, .irs .irs-from, .irs .irs-single {
+  border: green;
+  background: green;
+}
+.selectize-dropdown-content div.option.selected {
+  background-color: green!important;
+}
+table.dataTable.display>tbody>tr.selected>* {
+    box-shadow: inset 0 0 0 9999px green !important;
+}
+table.dataTable.display>tbody>tr.selected:hover>* {
+    box-shadow: inset 0 0 0 9999px green !important;
+}

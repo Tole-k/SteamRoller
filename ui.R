@@ -3,6 +3,8 @@ library(DT)
 library(ggplot2)
 library(shinydashboard)
 library(plotly)
+library(fresh)
+library(shinyWidgets)
 shinyUI(dashboardPage(skin = "green",
     dashboardHeader(title = "SteamRoller",tags$li(class = "dropdown",
         tags$img(src = "images/steam.png", height = "50px", width = "150px")
@@ -17,11 +19,16 @@ shinyUI(dashboardPage(skin = "green",
         )
     ),
     dashboardBody(
+        includeCSS("www/custom.css"),
         tabItems(
             tabItem(tabName = "DataTable",
                     h2("Data Table"),
                     fluidRow(
-                        box(width = 12,selectInput(inputId="columns",label="Choose columns for the data table",choices=colnames(data),multiple=TRUE,selected = c("name","release_date","developer","price"))),
+                        box(width = 12,pickerInput(inputId="columns",label="Choose columns for the data table",choices=colnames(data),multiple=TRUE,selected = c("name","release_date","developer","price"),  options = pickerOptions(
+                            actionsBox = TRUE, 
+                            size = 10,
+                            selectedTextFormat = "count > 4"
+                        ), )),
                     ),
                     fluidRow(
                         box(width = 12,title = "Table",
@@ -34,9 +41,9 @@ shinyUI(dashboardPage(skin = "green",
             tabItem(tabName = "Value",
                     h2("Recommended Games in terms of value"),
                     fluidRow(
-                        box(width = 4, title = "Genre",selectInput(inputId="genre",label="Choose a genre",choices=c(unique(dataD$genres)),selected = "Action")),
+                        box(width = 4, title = "Genre",selectInput(inputId="genre",label="Choose a genre",choices=c(unique(dataD$genres)),selected = "Racing",selectize = T)),
                         box(width = 4, title = "Platform",selectInput(inputId="platform",label="Select your platform",choices=unique(dataD$platforms)),selected = "Windows"),
-                        box(width = 4, title = "Unpopular Games",checkboxInput(inputId="filter",label="filter unpopular games",value = TRUE))
+                        box(width = 4, title = "Unpopular Games",materialSwitch(inputId="filter",label="filter unpopular games",value = TRUE,status = "success"))
                     ),
                     fluidRow(
                         box(title = "Recommended games in terms of dollars per hour",plotlyOutput("Dvalue")),
@@ -50,7 +57,7 @@ shinyUI(dashboardPage(skin = "green",
                         box(width=6, title = "Best games of the year", DT::dataTableOutput("history_table"))
                     ),
                     fluidRow(
-                        box(width=2, title = "Customize graph", checkboxGroupInput(inputId="custom",label="Choose one or both:",choices=c("add line","add area"),selected = "add line")),
+                        box(width=2, title = "Customize graph", prettyCheckboxGroup(inputId="custom",label="Choose one or both:",choices=c("add line","add area"),selected = c("add line","add area"),status = "success")),
                         box(width=10, title = "History of prices", plotlyOutput("prices"))
                     )
             ),
@@ -58,7 +65,7 @@ shinyUI(dashboardPage(skin = "green",
                     h2("Hall of Fame"),
                     fluidRow(
                         box(width = 6, title = "Time Period", sliderInput(inputId="time",label="Choose time period",min = min(data$release_date),max = max(data$release_date),value = c(min(data$release_date),max(data$release_date)))),
-                        box(width = 6, title = "Genre",selectInput(inputId="genrePD",label="Choose genre",choices=c(unique(dataD$genres)),selected = "Action"))
+                        box(width = 6, title = "Genre",selectInput(inputId="genrePD",label="Choose genre",choices=c(unique(dataD$genres)),selected = "Racing"))
                     ),
                     fluidRow(
                         box(width=6, title = "Developers", plotlyOutput("hall_of_fame1")),

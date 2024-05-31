@@ -30,7 +30,7 @@ shinyServer(function(input, output) {
                 labels = ~category, 
                 values = ~amount, 
                 type = 'pie',
-                marker = list(colors = c('limegreen', '#DC4636'))
+                marker = list(colors = c('green', 'red'))
             )
         }
     })
@@ -70,7 +70,7 @@ shinyServer(function(input, output) {
                 ) + geom_bar(stat="identity")
             + ggtitle("Dollars per hour of playtime")
             +theme(axis.text.x = element_text(angle = 45, hjust = 1,vjust=1))
-            + scale_fill_gradient(low = "green",high = "#D6CA64",guide="none")
+            + scale_fill_gradient(low = "darkgreen",high = "limegreen",guide="none")
             +scale_y_continuous(labels = function(x) sprintf("%.3f$", x))
             +xlab("Game")
             +ylab("Dollars per hour"),tooltip = "text")
@@ -96,13 +96,13 @@ shinyServer(function(input, output) {
                 ) + geom_bar(stat="identity") 
             + ggtitle("Share of negative reviews")
             + theme(axis.text.x = element_text(angle = 45, hjust = 1,vjust=1))
-            + scale_fill_gradient(low = "green",high = "#D6CA64",guide="none")
+            + scale_fill_gradient(low = "darkgreen",high = "limegreen",guide="none")
             + scale_y_continuous(labels = function(x) sprintf("%.0f%%", 100*x))
             + xlab("Game")
             +ylab("Share of negative reviews"),tooltip = "text")
     })
     global <- reactiveValues(toHighlight = c(TRUE,rep(FALSE, length(dataH$year)-1)), 
-                             selectedBar = "1998")
+                             selectedBar = "2007")
     observeEvent(eventExpr = input$history_click, {
         global$selectedBar <- dataH$year[round(input$history_click$x)]
         global$toHighlight <- dataH$year %in% global$selectedBar
@@ -151,7 +151,7 @@ shinyServer(function(input, output) {
             xlab("Year")+
             scale_y_continuous(labels = function(x) sprintf("%.0f$", x))
         if("add area" %in% input$custom){
-            plt<- plt + geom_area(fill="gold", alpha=0.5)
+            plt<- plt + geom_area(fill="green", alpha=0.5)
         }
         if("add line" %in% input$custom){
             plt <- plt + geom_line(color="black")
@@ -187,7 +187,7 @@ shinyServer(function(input, output) {
             + theme(axis.text.x = element_text(angle = 45, hjust = 1,vjust=1))
             + xlab("Developer")
             + scale_y_continuous(labels = function(x) sprintf("%.0f%%", 100*x))
-            + scale_fill_gradient(low = "green",high = "#D6CA64",guide="none")
+            + scale_fill_gradient(low = "darkgreen",high = "limegreen",guide="none")
             + ylab("Share of negative reviews"), tooltip = "text")
     })
     output$hall_of_fame2 <- renderPlotly({
@@ -216,7 +216,7 @@ shinyServer(function(input, output) {
             + theme(axis.text.x = element_text(angle = 45, hjust = 1,vjust=1))
             +xlab("Publisher")
             +scale_y_continuous(labels = function(x) sprintf("%.0f%%", 100*x))
-            + scale_fill_gradient(low = "green",high = "#D6CA64",guide="none")
+            + scale_fill_gradient(low = "darkgreen",high = "limegreen",guide="none")
             +ylab("Share of negative reviews"),tooltip = "text")
     })
     output$hall_of_fame3 <- renderPlotly({
